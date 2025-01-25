@@ -29,7 +29,7 @@ def file_details():
     if allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        os.makedirs(app.config['UPLOAD_FOLDER'],exists_ok=True)
+        os.makedirs(app.config['UPLOAD_FOLDER'],exist_ok=True)
         file.save(file_path)
         doc=pymupdf.open(file_path)
         for page in doc:
