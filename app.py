@@ -29,14 +29,11 @@ def file_details():
     if allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        try:
-            file.save(file_path)
-            doc=pymupdf.open(file_path)
-            for page in doc:
-                text+=page.get_text()
-        except:
-            flash('Error in processing file, Please try again later or use another file.')
-            return redirect(url_for('upload_file'))
+    
+        file.save(file_path)
+        doc=pymupdf.open(file_path)
+        for page in doc:
+            text+=page.get_text()
         
         file_data = {
             "filename": filename,
