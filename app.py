@@ -6,7 +6,7 @@ import pymupdf
 
 app = Flask(__name__)
 app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
-app.config['UPLOAD_FOLDER']="uploads"
+app.config['UPLOAD_FOLDER']="./uploads"
 app.secret_key = 'secretkey'
 
 def allowed_file(filename):
