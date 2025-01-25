@@ -6,7 +6,7 @@ import pymupdf
 
 app = Flask(__name__)
 app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
-app.config['UPLOAD_FOLDER']="./uploads"
+app.config['UPLOAD_FOLDER']="uploads"
 app.secret_key = 'secretkey'
 
 def allowed_file(filename):
@@ -29,7 +29,7 @@ def file_details():
     if allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    
+        os.makedirs(app.config['UPLOAD_FOLDER'],exists_ok=True)
         file.save(file_path)
         doc=pymupdf.open(file_path)
         for page in doc:
@@ -49,6 +49,4 @@ def file_details():
 
 
 if __name__ == '__main__':
-    if not os.path.exists("./uploads"):
-        os.makedirs("./uploads")
     app.run(debug=True)
